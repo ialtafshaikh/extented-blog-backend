@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 const dontenv = require("dotenv");
+
+const blogRouter = require("./routes/blogRoutes");
 
 dontenv.config({ path: ".env" });
 const PORT = process.env.PORT;
@@ -25,6 +26,9 @@ connect.then(
 const app = express();
 
 app.use(express.json());
+
+//routes
+app.use("/blogs", blogRouter);
 
 app.listen(PORT, () => {
   console.log(`Listeninig on Port http://localhost:${PORT}`);

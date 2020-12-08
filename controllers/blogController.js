@@ -1,11 +1,11 @@
-const Task = require("../models/Task");
+const Blog = require("../models/blogs");
 
 const getAllBlogs = (req, res, next) => {
-  console.log("get all blogs");
+  res.status(200).json({ status: "get all blogs" });
 };
 
 const createBlog = (req, res, next) => {
-  console.log("create blog");
+  res.status(200).json({ status: "create blog" });
 };
 
 module.exports.getAllBlogs = getAllBlogs;

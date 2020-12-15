@@ -39,8 +39,22 @@ const getblogById = (req, res, next) => {
     });
 };
 
+const updateRelatedLinks = (req, res, next) => {
+  Blogs.updateMany({}, { $set: { links: [] } })
+    .then((blog) => {
+      res.status(200);
+      res.setHeader("Content-Type", "application/json");
+      res.json(blog);
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json({ message: "not able to update", error: err });
+    });
+};
+
 module.exports = {
   getAllBlogs,
   createBlog,
   getblogById,
+  updateRelatedLinks,
 };

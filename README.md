@@ -22,7 +22,7 @@ PORT=3000
 /blogs : (method:get) - to get all blogs 
 /blogs : (method:post) - to post blog
 /blogs?author&random - query this endpoint to get all the property based blogs
-/todos/id : (method:get) - to get a single blog of using _id (mongoose id)
+/blogs/id : (method:get) - to get a single blog of using _id (mongoose id)
 ```
 
 ## Author

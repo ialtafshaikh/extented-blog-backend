@@ -6,9 +6,12 @@ const {
   updateRelatedLinks,
 } = require("../controllers/blogController");
 
+//middlewares
+const { verifyQueryParams } = require("../middlewares/blogMiddlewares");
+
 const blogRoute = express.Router();
 
-blogRoute.route("/").get(getAllBlogs).post(createBlog);
+blogRoute.route("/").get(verifyQueryParams, getAllBlogs).post(createBlog);
 blogRoute.route("/:blogId").get(getblogById);
 blogRoute.route("/updateRelatedLinks").put(updateRelatedLinks);
 

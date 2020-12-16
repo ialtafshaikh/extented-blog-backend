@@ -1,16 +1,30 @@
 const Blogs = require("../models/blogs");
 
 const getAllBlogs = (req, res, next) => {
-  Blogs.find({})
-    .then((blogs) => {
-      res.status(200);
-      res.setHeader("Content-Type", "application/json");
-      res.json({ blogs: blogs, currentUser: "" });
-    })
-    .catch((err) => {
-      res.status(500);
-      res.json({ error: err });
-    });
+  if (!req.query == null) {
+    Blogs.find({})
+      .select(req.query)
+      .then((blogs) => {
+        res.status(200);
+        res.setHeader("Content-Type", "application/json");
+        res.json({ blogs: blogs, currentUser: "" });
+      })
+      .catch((err) => {
+        res.status(500);
+        res.json({ error: err });
+      });
+  } else {
+    Blogs.find({})
+      .then((blogs) => {
+        res.status(200);
+        res.setHeader("Content-Type", "application/json");
+        res.json({ blogs: blogs, currentUser: "" });
+      })
+      .catch((err) => {
+        res.status(500);
+        res.json({ error: err });
+      });
+  }
 };
 
 const createBlog = (req, res, next) => {

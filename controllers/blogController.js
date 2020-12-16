@@ -1,7 +1,8 @@
 const Blogs = require("../models/blogs");
 
 const getAllBlogs = (req, res, next) => {
-  if (!req.query == null) {
+  if (Object.keys(req.query).length != 0) {
+    req.query._id = 0;
     Blogs.find({})
       .select(req.query)
       .then((blogs) => {

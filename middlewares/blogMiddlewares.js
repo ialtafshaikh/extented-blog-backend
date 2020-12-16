@@ -2,15 +2,14 @@ const AppError = require("../helper/appErrorClass");
 const sendErrorMessage = require("../helper/sendError");
 
 const verifyQueryParams = (req, res, next) => {
-  if (req.query == null) {
+  if (req.query != null) {
     let validationArray = ["author", "title", "content", "imageUrl", "links"];
     let extractedValidKeys = {};
     validationArray.forEach((key) => {
-      if (req.query[key]) {
+      if (req.query[key] == "") {
         extractedValidKeys[key] = 1;
       }
     });
-
     if (extractedValidKeys == null) {
       return sendErrorMessage(
         new AppError(400, "unsuccessful", "invalid query param"),
@@ -21,8 +20,9 @@ const verifyQueryParams = (req, res, next) => {
       req.query = extractedValidKeys;
       next();
     }
+  } else {
+    next();
   }
-  next();
 };
 
 module.exports = {

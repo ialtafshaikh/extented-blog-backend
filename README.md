@@ -25,6 +25,11 @@ PORT=3000
 /blogs/id : (method:get) - to get a single blog of using _id (mongoose id)
 ```
 
+## Steps to Host on Heroku
+
+[refer this gist](https://gist.github.com/ialtafshaikh/8336df5d417109b12c46bd20ccda4e17)
+
+
 ## Author
 
 * **Altaf Shaikh** - *work by* - [ialtafshaikh](https://github.com/ialtafshaikh)

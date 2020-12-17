@@ -3,6 +3,7 @@ const {
   getAllBlogs,
   createBlog,
   getblogById,
+  deleteBlog,
   updateRelatedLinks,
 } = require("../controllers/blogController");
 
@@ -20,7 +21,7 @@ blogRoute
   .route("/")
   .get(verifyQueryParams, getAllBlogs)
   .post(upload, verifyPostRequest, createBlog);
-blogRoute.route("/:blogId").get(getblogById);
+blogRoute.route("/:blogId").get(getblogById).delete(deleteBlog);
 blogRoute.route("/updateRelatedLinks").put(updateRelatedLinks);
 
 module.exports = blogRoute;

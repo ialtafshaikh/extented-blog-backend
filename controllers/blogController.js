@@ -67,6 +67,27 @@ const getblogById = (req, res, next) => {
     });
 };
 
+const deleteBlog = (req, res, next) => {
+  Blogs.findByIdAndRemove(req.params.blogId, { useFindAndModify: false })
+    .then((response) => {
+      if (response == null) {
+        res.status(404);
+        res.json({ message: "Id did not exists" });
+      }
+      res.status(200);
+      res.setHeader("Content-Type", "application/json");
+      res.json({
+        status: "Blog deleted successfully",
+        response: response,
+      });
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json({ message: "Id did not exists", error: err });
+    });
+};
+
+// to make relatedLink field a empty list
 const updateRelatedLinks = (req, res, next) => {
   Blogs.updateMany({}, { $set: { links: [] } })
     .then((blog) => {
@@ -84,5 +105,6 @@ module.exports = {
   getAllBlogs,
   createBlog,
   getblogById,
+  deleteBlog,
   updateRelatedLinks,
 };

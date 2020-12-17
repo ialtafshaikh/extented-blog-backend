@@ -30,18 +30,18 @@ const verifyQueryParams = (req, res, next) => {
         extractedQuery[key] = req.query[key];
       }
     });
-    // check for null extractedQuery
-    if (Object.keys(extractedQuery).length == 0) {
-      return sendErrorMessage(
-        new AppError(
-          400,
-          "unsuccessful",
-          "no query param and tried to perform select"
-        ),
-        req,
-        res
-      );
-    }
+    // // check for null extractedQuery
+    // if (Object.keys(extractedQuery).length == 0) {
+    //   return sendErrorMessage(
+    //     new AppError(
+    //       400,
+    //       "unsuccessful",
+    //       "no query param and tried to perform select"
+    //     ),
+    //     req,
+    //     res
+    //   );
+    // }
 
     if (req.query.select) {
       const selectList = req.query.select.split(",");

@@ -1,10 +1,13 @@
 const Blogs = require("../models/blogs");
 
 const getAllBlogs = (req, res, next) => {
-  if (Object.keys(req.query).length != 0) {
-    req.query._id = 0;
-    Blogs.find({})
-      .select(req.query)
+  if (
+    Object.keys(req.select).length != 0 ||
+    Object.keys(req.query).length != 0
+  ) {
+    req.select._id = 0;
+    Blogs.find(req.query)
+      .select(req.select)
       .then((blogs) => {
         res.status(200);
         res.setHeader("Content-Type", "application/json");

@@ -39,7 +39,7 @@ const createBlog = (req, res, next) => {
   const newBlog = {
     title: req.body.title,
     content: req.body.content,
-    imageUrl: req.file.path,
+    imageUrl: req.file.filename,
   };
 
   Blogs.create(newBlog)

@@ -8,16 +8,18 @@ const {
 
 //middlewares
 const {
+  verifyPostRequest,
   verifyQueryParams,
-  uploadImage,
 } = require("../middlewares/blogMiddlewares");
+
+const upload = require("../helper/multerConfig");
 
 const blogRoute = express.Router();
 
 blogRoute
   .route("/")
   .get(verifyQueryParams, getAllBlogs)
-  .post(uploadImage, createBlog);
+  .post(upload, verifyPostRequest, createBlog);
 blogRoute.route("/:blogId").get(getblogById);
 blogRoute.route("/updateRelatedLinks").put(updateRelatedLinks);
 

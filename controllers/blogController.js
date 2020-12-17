@@ -29,7 +29,17 @@ const getAllBlogs = (req, res, next) => {
 };
 
 const createBlog = (req, res, next) => {
-  Blogs.create(req.body)
+  if (typeof req.file === "undefined") {
+    res.status(404);
+    return res.json({ message: "file not uploaded" });
+  }
+  const newBlog = {
+    title: req.body.title,
+    content: req.body.content,
+    imageUrl: req.file.path,
+  };
+
+  Blogs.create(newBlog)
     .then((blog) => {
       res.status(200);
       res.setHeader("Content-Type", "application/json");

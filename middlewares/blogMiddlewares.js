@@ -1,6 +1,22 @@
 const AppError = require("../helper/appErrorClass");
 const sendErrorMessage = require("../helper/sendError");
-const upload = require("../helper/multerConfig");
+
+const verifyPostRequest = (req, res, next) => {
+  console.log(req.body);
+  let requiredProps = ["title", "content"];
+  let result = requiredProps.every((prop) => {
+    return req.body[prop] && req.body[prop].trim().length;
+  });
+  if (!result) {
+    return sendErrorMessage(
+      new AppError(400, "unsuccessful", "Invalid body"),
+      req,
+      res
+    );
+  } else {
+    next();
+  }
+};
 
 const verifyQueryParams = (req, res, next) => {
   if (req.query != null) {
@@ -26,23 +42,7 @@ const verifyQueryParams = (req, res, next) => {
   }
 };
 
-const uploadImage = (req, res, next) => {
-  upload(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred when uploading.
-      res.status(500);
-      res.json({ message: "unable to upload image" });
-    } else if (err) {
-      // An unknown error occurred when uploading.
-      res.status(200);
-      res.json({ message: err });
-    }
-    req.body.imageUrl = req.file.path;
-    next();
-  });
-};
-
 module.exports = {
+  verifyPostRequest,
   verifyQueryParams,
-  uploadImage,
 };

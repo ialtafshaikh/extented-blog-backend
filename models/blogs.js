@@ -2,13 +2,6 @@ const mongoose = require("mongoose");
 const uniquid = require("uniquid");
 const Schema = mongoose.Schema;
 
-const relatedLinks = new Schema({
-  blogId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Blog",
-  },
-});
-
 const blogSchema = new Schema(
   {
     blogID: {
@@ -31,7 +24,7 @@ const blogSchema = new Schema(
       type: String,
       required: true,
     },
-    links: [relatedLinks],
+    links: [],
   },
   {
     timestamps: true,

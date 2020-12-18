@@ -144,28 +144,29 @@ const populateRelatedLinks = (req, res, next) => {
   Blogs.find({})
     .select({ _id: 0, blogID: 1 })
     .then((blogs) => {
-      console.log(blogs);
-      if (blogs.length == 0 || blogs.length < 3) {
-        return;
-      } else {
-        Blogs.updateMany(
-          {},
-          {
-            $set: {
-              links: blogs.slice(Math.floor(Math.random(blogs.length), 3)),
-            },
-          }
-        )
-          .then((blog) => {
-            res.status(200);
-            res.setHeader("Content-Type", "application/json");
-            res.json(blog);
-          })
-          .catch((err) => {
-            res.status(404);
-            res.json({ message: "not able to update", error: err });
-          });
+      if (blogs.length == 0 || blogs.length < 2) {
+        res.status(404);
+        res.json({
+          message: "no sufficient blogs to populate links",
+        });
       }
+      Blogs.updateMany(
+        {},
+        {
+          $set: {
+            links: blogs.slice(Math.floor(Math.random() * blogs.length, 3)),
+          },
+        }
+      )
+        .then((response) => {
+          res.status(200);
+          res.setHeader("Content-Type", "application/json");
+          res.json(response);
+        })
+        .catch((err) => {
+          res.status(404);
+          res.json({ message: "not able to update", error: err });
+        });
     })
     .catch((err) => {
       res.status(404);

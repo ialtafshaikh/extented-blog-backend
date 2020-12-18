@@ -16,7 +16,7 @@ const {
   verifyUpdate,
 } = require("../middlewares/blogMiddlewares");
 
-const upload = require("../helper/multerConfig");
+const upload = require("../config/multerConfig");
 
 const blogRoute = express.Router();
 

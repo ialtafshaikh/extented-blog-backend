@@ -19,7 +19,8 @@ const verifyPostRequest = (req, res, next) => {
 
 const verifyQueryParams = (req, res, next) => {
   // when empty req.query is null but it is object
-  if (req.query != null) {
+
+  if (Object.keys(req.query).length != 0) {
     let queryValidationArray = ["author", "title"];
     let validationArray = ["author", "title", "content", "imageUrl", "links"];
     let extractedValidKeys = {};
@@ -30,18 +31,18 @@ const verifyQueryParams = (req, res, next) => {
         extractedQuery[key] = req.query[key];
       }
     });
-    // // check for null extractedQuery
-    // if (Object.keys(extractedQuery).length == 0) {
-    //   return sendErrorMessage(
-    //     new AppError(
-    //       400,
-    //       "unsuccessful",
-    //       "no query param and tried to perform select"
-    //     ),
-    //     req,
-    //     res
-    //   );
-    // }
+    // check for null extractedQuery
+    if (Object.keys(extractedQuery).length == 0) {
+      return sendErrorMessage(
+        new AppError(
+          400,
+          "unsuccessful",
+          "no query param and tried to perform select"
+        ),
+        req,
+        res
+      );
+    }
 
     if (req.query.select) {
       const selectList = req.query.select.split(",");
@@ -64,6 +65,8 @@ const verifyQueryParams = (req, res, next) => {
       next();
     }
   } else {
+    req.select = {};
+    req.query = {};
     next();
   }
 };

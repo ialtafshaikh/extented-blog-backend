@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const uniquid = require("uniquid");
 const Schema = mongoose.Schema;
 
 const relatedLinks = new Schema({
@@ -10,8 +11,13 @@ const relatedLinks = new Schema({
 
 const blogSchema = new Schema(
   {
-    author: {
+    blogID: {
       type: String,
+      default: uniquid(),
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     title: {
       type: String,

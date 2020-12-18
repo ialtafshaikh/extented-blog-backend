@@ -1,11 +1,13 @@
 const Blogs = require("../models/blogs");
 
+// res => will contain currentUser object currently logged in
 const getAllBlogs = (req, res, next) => {
   if (
     Object.keys(req.select).length != 0 ||
     Object.keys(req.query).length != 0
   ) {
     req.select._id = 0;
+    req.query.author = res.currentUser._id;
     Blogs.find(req.query)
       .select(req.select)
       .then((blogs) => {
@@ -18,7 +20,7 @@ const getAllBlogs = (req, res, next) => {
         res.json({ error: err });
       });
   } else {
-    Blogs.find({})
+    Blogs.find({ author: res.currentUser._id })
       .then((blogs) => {
         res.status(200);
         res.setHeader("Content-Type", "application/json");

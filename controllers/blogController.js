@@ -59,7 +59,7 @@ const createBlog = (req, res, next) => {
 };
 
 const getblogById = (req, res, next) => {
-  Blogs.findById(req.params.blogId)
+  Blogs.findOne({ blogID: req.params.blogId })
     .then((blog) => {
       if (blog.author == res.currentUser._id) {
         res.status(200);

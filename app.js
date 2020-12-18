@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dontenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 const blogRouter = require("./routes/blogRoutes");
 
@@ -26,10 +27,17 @@ connect.then(
 
 const app = express();
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .json({ message: "Hi I am Server", data: "no data on this endpoint" });
+});
+
 app.use("/blogs", blogRouter);
 
 app.listen(PORT, () => {

@@ -6,10 +6,23 @@ const cookieParser = require("cookie-parser");
 
 const blogRouter = require("./routes/blogRoutes");
 
+//middleware
+const {
+  signUpUser,
+  loginUser,
+  authorize,
+} = require("./middlewares/authenticate");
+
 // env config
 dontenv.config({ path: ".env" });
 const PORT = process.env.PORT;
-const dbURI = process.env.DATABASE_URL;
+let dbURI;
+
+if (process.env.DEBUG == "false") {
+  dbURI = process.env.DATABASE_URL;
+} else {
+  dbURI = process.env.LOCAL_DB_URL;
+}
 
 const connect = mongoose.connect(dbURI, {
   useNewUrlParser: true,
@@ -38,7 +51,9 @@ app.get("/", (req, res) => {
     .json({ message: "Hi I am Server", data: "no data on this endpoint" });
 });
 
-app.use("/blogs", blogRouter);
+app.post("/signup", signUpUser);
+app.post("/login", loginUser);
+app.use("/blogs", authorize, blogRouter);
 
 app.listen(PORT, () => {
   console.log(`Listeninig on Port http://localhost:${PORT}`);

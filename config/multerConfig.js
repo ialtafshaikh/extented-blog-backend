@@ -2,13 +2,22 @@ const multer = require("multer");
 const DatauriParser = require("datauri/parser");
 const path = require("path");
 const fs = require("fs");
+const dontenv = require("dotenv");
+dontenv.config({ path: ".env" });
 
 let storage;
+let dataUri;
 const parser = new DatauriParser();
 
 if (process.env.STORAGE_TYPE == "cloud") {
   storage = multer.memoryStorage();
+  dataUri = (req) =>
+    parser.format(
+      path.extname(req.file.originalname).toString(),
+      req.file.buffer
+    );
 } else {
+  dataUri = {};
   storage = multer.diskStorage({
     destination: function (req, file, cb) {
       var directory = process.env.STORAGE;
@@ -30,12 +39,6 @@ if (process.env.STORAGE_TYPE == "cloud") {
   });
 }
 
-const dataUri = (req) =>
-  parser.format(
-    path.extname(req.file.originalname).toString(),
-    req.file.buffer
-  );
+const multerUploads = multer({ storage: storage }).single("banner");
 
-const upload = multer({ storage: storage }).single("banner");
-
-module.exports = { upload, dataUri };
+module.exports = { multerUploads, dataUri };

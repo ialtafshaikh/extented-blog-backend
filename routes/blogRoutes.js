@@ -14,16 +14,24 @@ const {
   verifyPostRequest,
   verifyQueryParams,
   verifyUpdate,
+  uploadImage,
 } = require("../middlewares/blogMiddlewares");
 
-const upload = require("../config/multerConfig");
+const { multerUploads } = require("../config/multerConfig");
+const { cloudinaryConfig } = require("../config/cloudinaryConfig");
 
 const blogRoute = express.Router();
 
 blogRoute
   .route("/")
   .get(verifyQueryParams, getAllBlogs)
-  .post(upload, verifyPostRequest, createBlog);
+  .post(
+    cloudinaryConfig,
+    multerUploads,
+    verifyPostRequest,
+    uploadImage,
+    createBlog
+  );
 blogRoute
   .route("/:blogId")
   .get(getblogById)

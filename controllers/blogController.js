@@ -38,14 +38,10 @@ const getAllBlogs = (req, res, next) => {
 };
 
 const createBlog = (req, res, next) => {
-  if (typeof req.file === "undefined") {
-    res.status(404);
-    return res.json({ message: "file not uploaded" });
-  }
   const newBlog = {
     title: req.body.title,
     content: req.body.content,
-    imageUrl: req.file.filename,
+    imageUrl: req.image,
     author: res.currentUser._id,
   };
 

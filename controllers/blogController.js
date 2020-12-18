@@ -61,9 +61,14 @@ const createBlog = (req, res, next) => {
 const getblogById = (req, res, next) => {
   Blogs.findById(req.params.blogId)
     .then((blog) => {
-      res.status(200);
-      res.setHeader("Content-Type", "application/json");
-      res.json(blog);
+      if (blog.author == res.currentUser._id) {
+        res.status(200);
+        res.setHeader("Content-Type", "application/json");
+        res.json(blog);
+      } else {
+        res.status(401);
+        res.json({ message: "unauthorized operation" });
+      }
     })
     .catch((err) => {
       res.status(404);

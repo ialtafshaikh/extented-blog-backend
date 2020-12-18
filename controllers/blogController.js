@@ -140,16 +140,36 @@ const deleteBlog = (req, res, next) => {
 };
 
 // to make relatedLink field a empty list
-const updateRelatedLinks = (req, res, next) => {
-  Blogs.updateMany({}, { $set: { links: [] } })
-    .then((blog) => {
-      res.status(200);
-      res.setHeader("Content-Type", "application/json");
-      res.json(blog);
+const populateRelatedLinks = (req, res, next) => {
+  Blogs.find({})
+    .select({ _id: 0, blogID: 1 })
+    .then((blogs) => {
+      console.log(blogs);
+      if (blogs.length == 0 || blogs.length < 3) {
+        return;
+      } else {
+        Blogs.updateMany(
+          {},
+          {
+            $set: {
+              links: blogs.slice(Math.floor(Math.random(blogs.length), 3)),
+            },
+          }
+        )
+          .then((blog) => {
+            res.status(200);
+            res.setHeader("Content-Type", "application/json");
+            res.json(blog);
+          })
+          .catch((err) => {
+            res.status(404);
+            res.json({ message: "not able to update", error: err });
+          });
+      }
     })
     .catch((err) => {
       res.status(404);
-      res.json({ message: "not able to update", error: err });
+      res.json({ message: "unable to populate links", error: err });
     });
 };
 
@@ -159,5 +179,5 @@ module.exports = {
   getblogById,
   updateBlog,
   deleteBlog,
-  updateRelatedLinks,
+  populateRelatedLinks,
 };

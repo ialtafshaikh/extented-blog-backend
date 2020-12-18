@@ -21,7 +21,10 @@ const getAllBlogs = (req, res, next) => {
         res.json({ error: err });
       });
   } else {
+    req.select._id = 0;
+    req.select.author = 0;
     Blogs.find({ author: res.currentUser._id })
+      .select(req.select)
       .then((blogs) => {
         res.status(200);
         res.setHeader("Content-Type", "application/json");

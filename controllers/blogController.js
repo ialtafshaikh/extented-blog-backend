@@ -7,13 +7,14 @@ const getAllBlogs = (req, res, next) => {
     Object.keys(req.query).length != 0
   ) {
     req.select._id = 0;
+    req.select.blogID = 1;
     req.query.author = res.currentUser._id;
     Blogs.find(req.query)
       .select(req.select)
       .then((blogs) => {
         res.status(200);
         res.setHeader("Content-Type", "application/json");
-        res.json({ blogs: blogs, currentUser: "" });
+        res.json({ blogs: blogs, currentUser: res.currentUser });
       })
       .catch((err) => {
         res.status(500);
@@ -24,7 +25,7 @@ const getAllBlogs = (req, res, next) => {
       .then((blogs) => {
         res.status(200);
         res.setHeader("Content-Type", "application/json");
-        res.json({ blogs: blogs, currentUser: "" });
+        res.json({ blogs: blogs, currentUser: res.currentUser });
       })
       .catch((err) => {
         res.status(500);
@@ -42,6 +43,7 @@ const createBlog = (req, res, next) => {
     title: req.body.title,
     content: req.body.content,
     imageUrl: req.file.filename,
+    author: res.currentUser._id,
   };
 
   Blogs.create(newBlog)

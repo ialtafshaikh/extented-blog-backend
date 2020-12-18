@@ -76,6 +76,37 @@ const getblogById = (req, res, next) => {
     });
 };
 
+const updateBlog = (req, res, next) => {
+  Blogs.findOne({ blogID: req.params.blogId })
+    .then((blog) => {
+      if (blog.author == res.currentUser._id) {
+        //to get th updated doc u need to use findByIDAndUpdate()
+        Blogs.updateOne(
+          { blogID: req.params.blogId },
+          {
+            $set: req.update,
+          }
+        )
+          .then((response) => {
+            res.status(200);
+            res.setHeader("Content-Type", "application/json");
+            res.json(response);
+          })
+          .catch((err) => {
+            res.status(404);
+            res.json({ message: "unable to update", error: err });
+          });
+      } else {
+        res.status(401);
+        res.json({ message: "unauthorized operation" });
+      }
+    })
+    .catch((err) => {
+      res.status(404);
+      res.json({ message: "Id did not exists", error: err });
+    });
+};
+
 const deleteBlog = (req, res, next) => {
   Blogs.findOne({ blogID: req.params.blogId })
     .then((blog) => {
@@ -126,6 +157,7 @@ module.exports = {
   getAllBlogs,
   createBlog,
   getblogById,
+  updateBlog,
   deleteBlog,
   updateRelatedLinks,
 };

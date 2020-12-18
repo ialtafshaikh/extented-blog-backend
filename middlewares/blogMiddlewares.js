@@ -71,7 +71,38 @@ const verifyQueryParams = (req, res, next) => {
   }
 };
 
+const verifyUpdate = (req, res, next) => {
+  if (Object.keys(req.body).length == 0) {
+    return sendErrorMessage(
+      new AppError(400, "unsuccessful", "no update data"),
+      req,
+      res
+    );
+  }
+
+  let updateValidationArray = ["author", "title"];
+  let extractedValidKeys = {};
+
+  updateValidationArray.forEach((key) => {
+    if (req.body[key]) {
+      extractedValidKeys[key] = req.body[key];
+    }
+  });
+
+  // check for null extractedValidKeys
+  if (Object.keys(extractedValidKeys).length == 0) {
+    return sendErrorMessage(
+      new AppError(400, "unsuccessful", "valid properties but no data"),
+      req,
+      res
+    );
+  }
+  req.update = extractedValidKeys;
+  next();
+};
+
 module.exports = {
   verifyPostRequest,
   verifyQueryParams,
+  verifyUpdate,
 };

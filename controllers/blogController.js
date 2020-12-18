@@ -77,18 +77,30 @@ const getblogById = (req, res, next) => {
 };
 
 const deleteBlog = (req, res, next) => {
-  Blogs.findByIdAndRemove(req.params.blogId, { useFindAndModify: false })
-    .then((response) => {
-      if (response == null) {
-        res.status(404);
-        res.json({ message: "Id did not exists" });
+  Blogs.findOne({ blogID: req.params.blogId })
+    .then((blog) => {
+      if (blog.author == res.currentUser._id) {
+        Blogs.deleteOne({ blogID: req.params.blogId })
+          .then((response) => {
+            if (response == null) {
+              res.status(404);
+              res.json({ message: "Id did not exists" });
+            }
+            res.status(200);
+            res.setHeader("Content-Type", "application/json");
+            res.json({
+              status: "Blog deleted successfully",
+              response: response,
+            });
+          })
+          .catch((err) => {
+            res.status(404);
+            res.json({ message: "unable to delete", error: err });
+          });
+      } else {
+        res.status(401);
+        res.json({ message: "unauthorized operation" });
       }
-      res.status(200);
-      res.setHeader("Content-Type", "application/json");
-      res.json({
-        status: "Blog deleted successfully",
-        response: response,
-      });
     })
     .catch((err) => {
       res.status(404);

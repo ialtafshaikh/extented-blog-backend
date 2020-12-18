@@ -59,6 +59,7 @@ const createBlog = (req, res, next) => {
 
 const getblogById = (req, res, next) => {
   Blogs.findOne({ blogID: req.params.blogId })
+    .select({ _id: 0 })
     .then((blog) => {
       if (blog.author == res.currentUser._id) {
         res.status(200);

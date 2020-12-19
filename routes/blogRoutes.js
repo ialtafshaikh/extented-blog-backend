@@ -6,7 +6,6 @@ const {
   getblogById,
   updateBlog,
   deleteBlog,
-  populateRelatedLinks,
 } = require("../controllers/blogController");
 
 //middlewares
@@ -37,6 +36,6 @@ blogRoute
   .get(getblogById)
   .put(verifyUpdate, updateBlog)
   .delete(deleteBlog);
-blogRoute.route("/populateLinks").post(populateRelatedLinks);
+// blogRoute.route("/populateLinks").post(populateRelatedLinks);
 
 module.exports = blogRoute;

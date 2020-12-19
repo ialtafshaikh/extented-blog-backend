@@ -72,6 +72,9 @@ CLOUDINARY_API_SECRET=your cloudinary api secret
 
 [refer this gist](https://gist.github.com/ialtafshaikh/8336df5d417109b12c46bd20ccda4e17)
 
+## Live Demo of this Project
+
+[hosted backend server](https://extented-node-blog-backend.herokuapp.com/)
 
 ## Author
 

@@ -5,6 +5,8 @@ const { dataUri } = require("../config/multerConfig");
 const { uploader } = require("../config/cloudinaryConfig");
 
 const verifyPostRequest = (req, res, next) => {
+  console.log(req.headers);
+  // console.log(req.file);
   let requiredProps = ["title", "content"];
   let result = requiredProps.every((prop) => {
     return req.body[prop] && req.body[prop].trim().length;

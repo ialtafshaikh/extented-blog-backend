@@ -68,9 +68,11 @@ CLOUDINARY_API_SECRET=your cloudinary api secret
 
 ```
 
-## Steps to Host on Heroku
+## Deployment
 
-[refer this gist](https://gist.github.com/ialtafshaikh/8336df5d417109b12c46bd20ccda4e17)
+To Host the Project I had used **Heroku Platform**. 
+To learn more [refer this gist](https://gist.github.com/ialtafshaikh/8336df5d417109b12c46bd20ccda4e17)
+
 
 ## Live Demo of this Project
 

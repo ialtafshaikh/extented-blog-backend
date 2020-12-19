@@ -1,13 +1,30 @@
 
 # Blog Backend REST API SERVER
 
-A Blog backend built using express server in NodeJS and  mongoDB atlas is used to store the data 
+A Blog backend built using express server in NodeJS and  mongoDB atlas is used to store the data and hosted on Heroku.
 
 ## Getting Started
 
 - [Check the frontend application of the app](https://github.com/ialtafshaikh/blog-frontend)
 - [Check the authentication backend code for the blog](https://github.com/ialtafshaikh/authentication-backend)
 
+## Features
+
+- get a list of all the blogs
+- create a blog
+- upload images to cloudinary or to local storage
+- store data to mongoDB using atlas
+- get blogs using Blog Id
+- delete blog using blog Id
+- update blog using Blog Id
+
+## Additional Features
+
+- used cloud storage cloudinary to upload and store the file
+- used multer to accept multipart data
+- dataURI to convert the buffer into readable stream support by clodinary
+- authentication is done by the auth server and communication is done using axios api calls
+- hosted in heroku platform
 
 ### Downloading and Running this Project Locally
 1. clone the repository

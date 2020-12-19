@@ -27,9 +27,24 @@ CLOUDINARY_API_SECRET=your cloudinary api secret
 
 ```
 /blogs : (method:get) - to get all blogs 
+
 /blogs : (method:post) - to post blog
-/blogs?author&random - query this endpoint to get all the property based blogs
-/blogs/id : (method:get) - to get a single blog of using _id (mongoose id)
+
+/blogs?auther=value&select=title - query this endpoint to get all the blogs based on query and select filter
+
+/blogs/id : (method:get) - to get a single blog using blogID
+
+/blogs/id : (method:put) - to update post ``titile`` and ``content``  of a single blog using blogID
+
+/blogs/id : (method:delete) - to delete blog using blogID
+
+/signup : (method:post) - create user accout
+
+/login : (method:post) - get jwt token and authenticate yourself using the creds (email,password)
+
+/auth : to restrict the user from accessing the resources on route /blogs so send token in authorization header as bearer token
+
+
 ```
 
 ## Steps to Host on Heroku

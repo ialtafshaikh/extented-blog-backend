@@ -5,6 +5,10 @@ A Blog backend built using express server in NodeJS and  mongoDB atlas is used t
 
 ## Getting Started
 
+- [Check the frontend application of the app](https://github.com/ialtafshaikh/blog-frontend)
+- [Check the authentication backend code for the blog](https://github.com/ialtafshaikh/authentication-backend)
+
+
 ### Downloading and Running this Project Locally
 1. clone the repository
 ```

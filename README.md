@@ -1,7 +1,7 @@
 
-# Blog Backend
+# Blog Backend REST API SERVER
 
-A Blog backend built using express server, mongoDB atlas is used to store the data 
+A Blog backend built using express server in NodeJS and  mongoDB atlas is used to store the data 
 
 ## Getting Started
 

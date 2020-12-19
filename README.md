@@ -12,8 +12,15 @@ git clone https://github.com/ialtafshaikh/blog-backend.git
 ```
 2. add a ``.env`` file inside the root folder
 ```
-DATABASE_URL=local_moongodb
+DEBUG=false //set false to use atlas and true to use local mongodb
 PORT=3000
+STORAGE_TYPE=cloud // upload to cloudinary or set local to upload images to local server
+LOCAL_DB_URL=mongodb://127.0.0.1:27017/localblogapp
+DATABASE_URL=atlas url
+STORAGE=local storage path
+CLOUDINARY_CLOUD_NAME=your cloudinary cloud name
+CLOUDINARY_API_KEY=your cloudinary api key
+CLOUDINARY_API_SECRET=your cloudinary api secret
 ```
 
 ### Supported Routes

@@ -24,7 +24,7 @@ A Blog backend built using express server in NodeJS and  mongoDB atlas is used t
 - used multer to accept multipart data
 - dataURI to convert the buffer into readable stream support by clodinary
 - authentication is done by the auth server and communication is done using axios api calls
-- hosted in heroku platform
+- hosted on heroku platform
 
 ### Downloading and Running this Project Locally
 1. clone the repository
